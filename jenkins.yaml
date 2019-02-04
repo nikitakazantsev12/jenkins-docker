@@ -1,0 +1,39 @@
+jenkins:
+  systemMessage: "DAV3 - automated Jenkins installation"
+
+unclassified:
+  globalLibraries:
+    libraries:
+    - defaultVersion: "master"
+      implicit: true
+      name: "ansible-library"
+      retriever:
+        modernSCM:
+          scm:
+            git:
+              credentialsId: "git"
+              remote: "https://gitlab.com/pipeline-library.git"
+
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - usernamePassword:
+              scope: GLOBAL
+              id: "git"
+              username: "myniceuser"
+              password: "mynicepassword"
+              description: "FNU to access pipeline libraries"
+
+jobs:
+  - script: >
+      folder('Standardsoftware')
+  - script: >
+      pipelineJob('Standardsoftware/Standard-Software TestTSI Hosts') {
+          definition {
+              cps {
+                script("playbook('std_software', 'master', 'linux_test', 'no_check', [:], true, 'mymail@support.edu')")
+              }
+          }
+      }
+
