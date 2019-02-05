@@ -35,5 +35,8 @@ jobs:
                 script("playbook('std_software', 'master', 'linux_test', 'no_check', [:], true, 'mymail@support.edu')")
               }
           }
+          triggers {
+            cron('H */2 * * *')
+          }
       }
 
