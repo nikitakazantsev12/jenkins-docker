@@ -29,7 +29,7 @@ jobs:
   - script: >
       folder('Standardsoftware')
   - script: >
-      pipelineJob('Standardsoftware/Standard-Software TestTSI Hosts') {
+      pipelineJob('Standardsoftware/Standard-Software Test Hosts') {
           definition {
               cps {
                 script("playbook('std_software', 'master', 'linux_test', 'no_check', [:], true, 'mymail@support.edu')")
@@ -39,4 +39,14 @@ jobs:
             cron('H */2 * * *')
           }
       }
-
+  - script: >
+      pipelineJob('Standardsoftware/Standard-Software Ref Hosts') {
+          definition {
+              cps {
+                script("playbook('std_software', 'master', 'linux_ref', 'no_check', [:], true, 'mymail@support.edu')")
+              }
+          }
+          triggers {
+            cron('H */2 * * *')
+          }
+      }
